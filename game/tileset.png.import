@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b2ewil1ds0pfy"
-path="res://.godot/imported/HURT.png-1243a5956d144fda5889fed1888c7cf1.ctex"
+uid="uid://b78xw2o4ms3uk"
+path="res://.godot/imported/tileset.png-5b60ceb712cb69694423df2670f261cb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://player_sprites/Sprites/HURT.png"
-dest_files=["res://.godot/imported/HURT.png-1243a5956d144fda5889fed1888c7cf1.ctex"]
+source_file="res://game/tileset.png"
+dest_files=["res://.godot/imported/tileset.png-5b60ceb712cb69694423df2670f261cb.ctex"]
 
 [params]
 

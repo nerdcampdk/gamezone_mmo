@@ -22,11 +22,12 @@ func _physics_process(delta: float) -> void:
 		if not has_meta("doublejump_used"):
 			velocity.y = -JUMP_VELOCITY
 			set_meta("doublejump_used", true)
+			
 	# Reset doublejump when touching the floor.
 	if is_on_floor() and has_meta("doublejump_used"):
 		remove_meta("doublejump_used")
+		
 	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direction := Input.get_axis("move_left", "move_right")
 	if direction:
 		velocity.x = direction * SPEED
