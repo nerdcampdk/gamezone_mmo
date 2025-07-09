@@ -10,6 +10,9 @@ func _enter_tree():
 func _ready():
 	if !is_multiplayer_authority():
 		$Sprite2D.modulate = Color.RED
+		$Camera2D.enabled = false
+	else:
+		$Camera2D.enabled = true
 
 func _physics_process(delta):
 	if !is_multiplayer_authority():

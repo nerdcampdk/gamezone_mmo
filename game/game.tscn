@@ -34,10 +34,6 @@ position = Vector2(142, 23)
 [node name="SpawnPoint4" type="Marker2D" parent="Level"]
 position = Vector2(84, 38)
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(125, 40)
-zoom = Vector2(4, 4)
-
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="Multiplayer" type="Control" parent="UI"]
