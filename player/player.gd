@@ -9,7 +9,7 @@ func _enter_tree():
 
 func _ready():
 	if !is_multiplayer_authority():
-		$Sprite2D.modulate = Color.RED
+		$AnimatedSprite2D.modulate = Color.RED
 		$Camera2D.enabled = false
 	else:
 		$Camera2D.enabled = true
@@ -21,6 +21,7 @@ func _physics_process(delta):
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 	
+	# Jump or double jump
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 	
@@ -32,10 +33,20 @@ func _physics_process(delta):
 	if is_on_floor() and has_meta("doublejump_used"):
 		remove_meta("doublejump_used")
 	
+	# Horizontal movement
 	var direction = Input.get_axis("left", "right")
 	if direction:
 		velocity.x = direction * SPEED
+		$AnimatedSprite2D.flip_h = direction < 0
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 
 	move_and_slide()
+
+	# Animation control
+	if not is_on_floor():
+		$AnimatedSprite2D.play("jump")
+	elif abs(velocity.x) > 2:
+		$AnimatedSprite2D.play("run")
+	else:
+		$AnimatedSprite2D.play("idle")
