@@ -25,6 +25,7 @@ func _on_host_pressed():
 	
 	$MultiplayerSpawner.spawn(multiplayer.get_unique_id())
 	multiplayer_ui.hide()
+	host_addr_label.text = get_local_ip()
 
 
 func _on_join_pressed():
