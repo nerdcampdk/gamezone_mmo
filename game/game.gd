@@ -19,7 +19,7 @@ func _on_host_pressed():
 	
 	multiplayer.peer_connected.connect(
 		func(pid):
-			print("Peer " + str(pid) + " has joined the game!")
+			print("Peer " + str(pid) + " has joined the game! (IP: " + get_local_ip() + ")")
 			$MultiplayerSpawner.spawn(pid)
 	)
 	
@@ -46,3 +46,9 @@ func add_player(pid):
 
 func get_random_spawnpoint():
 	return $Level.get_children().pick_random().global_position
+
+func get_local_ip() -> String:
+	for addr in IP.get_local_addresses():
+		if addr.begins_with("192.") or addr.begins_with("10.") or addr.begins_with("172."):
+			return addr
+	return str()
