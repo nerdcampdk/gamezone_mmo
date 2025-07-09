@@ -21,6 +21,14 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 	
+	if Input.is_action_just_pressed("jump") and not is_on_floor():
+		if not has_meta("doublejump_used"):
+			velocity.y = JUMP_VELOCITY
+			set_meta("doublejump_used", true)
+	
+	if is_on_floor() and has_meta("doublejump_used"):
+		remove_meta("doublejump_used")
+	
 	var direction = Input.get_axis("left", "right")
 	if direction:
 		velocity.x = direction * SPEED
