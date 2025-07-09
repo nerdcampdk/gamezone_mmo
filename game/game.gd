@@ -9,31 +9,32 @@ const PLAYER = preload("res://player/player.tscn")
 
 var peer = ENetMultiplayerPeer.new()
 var players: Array[Player] = []
+var port: int;
+var max_players: int
 
 func _ready():
 	$MultiplayerSpawner.spawn_function = add_player
 	
+	var args = OS.get_cmdline_user_args()
+	for arg in args:
+		var key_value = arg.rsplit("=")
+		match key_value[0]:
+			"port":
+				port = key_value[1].to_int()
+			"max_players":
+				max_players = key_value[1].to_int()
 	
+	if DisplayServer.get_name() == "headless":
+		run_server()
 
 func _on_host_pressed():
-	peer.create_server(25565)
-	multiplayer.multiplayer_peer = peer
-	
-	multiplayer.peer_connected.connect(
-		func(pid):
-			print("Peer " + str(pid) + " has joined the game!")
-			$MultiplayerSpawner.spawn(pid)
-	)
-	
-	multiplayer.peer_disconnected.connect(
-		func(pid):
-			print("Peer " + str(pid) + " has left the game!")
-	)
+	max_players = 64
+	port = 25565
+	run_server()
 	
 	$MultiplayerSpawner.spawn(multiplayer.get_unique_id())
 	multiplayer_ui.hide()
 	host_addr_label.text = get_local_ip()
-
 
 func _on_join_pressed():
 	var join_ip: String = join_ip_lineedit.text
@@ -65,3 +66,20 @@ func get_local_ip() -> String:
 		if addr.begins_with("192.") or addr.begins_with("10.") or addr.begins_with("172."):
 			return addr
 	return str()
+
+func run_server():
+	peer.create_server(port, max_players)
+	multiplayer.multiplayer_peer = peer
+	
+	multiplayer.peer_connected.connect(
+		func(pid):
+			print("Peer " + str(pid) + " has joined the game!")
+			$MultiplayerSpawner.spawn(pid)
+	)
+	
+	multiplayer.peer_disconnected.connect(
+		func(pid):
+			print("Peer " + str(pid) + " has left the game!")
+	)
+	
+	print("Server is running on port " + str(port) + " with local ip: " + get_local_ip())

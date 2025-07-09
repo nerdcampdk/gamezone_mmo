@@ -1,3 +1,9 @@
 # Godot 4+ specific ignores
 .godot/
 /android/
+
+# Build artifacts
+build/
+
+# Exe editor (download from Github: electron/rcedit)
+rcedit.exe
