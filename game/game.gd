@@ -2,6 +2,8 @@ class_name Game
 extends Node
 
 @onready var multiplayer_ui = $UI/Multiplayer
+@onready var ip_label: Label = $UI/Ingame/VBoxContainer/Label
+@onready var join_ip_lineedit: LineEdit = $UI/Multiplayer/VBoxContainer/LineEdit
 
 const PLAYER = preload("res://player/player.tscn")
 
@@ -24,8 +26,13 @@ func _on_host_pressed():
 	$MultiplayerSpawner.spawn(multiplayer.get_unique_id())
 	multiplayer_ui.hide()
 
+
 func _on_join_pressed():
-	peer.create_client("localhost", 25565)
+	var join_ip: String = join_ip_lineedit.text
+	if join_ip.is_empty():
+		join_ip_lineedit.placeholder_text = "Please enter IP"
+		return
+	peer.create_client(join_ip, 25565)
 	multiplayer.multiplayer_peer = peer
 	multiplayer_ui.hide()
 
