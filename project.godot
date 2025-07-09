@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="Multiplayer Arena Shooter"
+config/name="NerdCamp Game"
 run/main_scene="res://game/game.tscn"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
@@ -48,4 +48,4 @@ jump={
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
-environment/defaults/default_clear_color=Color(0, 0, 0, 1)
+environment/defaults/default_clear_color=Color(0.956863, 0.956863, 0.956863, 1)
