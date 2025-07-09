@@ -12,6 +12,8 @@ var players: Array[Player] = []
 
 func _ready():
 	$MultiplayerSpawner.spawn_function = add_player
+	
+	
 
 func _on_host_pressed():
 	peer.create_server(25565)
@@ -19,8 +21,13 @@ func _on_host_pressed():
 	
 	multiplayer.peer_connected.connect(
 		func(pid):
-			print("Peer " + str(pid) + " has joined the game! (IP: " + get_local_ip() + ")")
+			print("Peer " + str(pid) + " has joined the game!")
 			$MultiplayerSpawner.spawn(pid)
+	)
+	
+	multiplayer.peer_disconnected.connect(
+		func(pid):
+			print("Peer " + str(pid) + " has left the game!")
 	)
 	
 	$MultiplayerSpawner.spawn(multiplayer.get_unique_id())
