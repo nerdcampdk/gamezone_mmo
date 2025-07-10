@@ -80,6 +80,11 @@ func run_server():
 	multiplayer.peer_disconnected.connect(
 		func(pid):
 			print("Peer " + str(pid) + " has left the game!")
+			
+			var player_node = get_node_or_null(str(pid))
+			if player_node:
+				player_node.queue_free()
+			players = players.filter(func(p): return p.name != str(pid))
 	)
 	
 	print("Server is running on port " + str(port) + " with local ip: " + get_local_ip())
