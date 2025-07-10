@@ -3,7 +3,8 @@ extends Node
 
 @onready var multiplayer_ui = $UI/Multiplayer
 @onready var host_addr_label: Label = $UI/Ingame/VBoxContainer/HostAddrLabel
-@onready var join_ip_lineedit: LineEdit = $UI/Multiplayer/VBoxContainer/LineEdit
+@onready var join_ip_lineedit: LineEdit = $UI/Multiplayer/VBoxContainer/IPInput
+@onready var name_input: LineEdit = $UI/Multiplayer/VBoxContainer/NameInput
 
 const PLAYER = preload("res://player/player.tscn")
 
@@ -32,11 +33,13 @@ func _on_host_pressed():
 	port = 25565
 	run_server()
 	
+	Shared.player_name = name_input.text
 	$MultiplayerSpawner.spawn(multiplayer.get_unique_id())
 	multiplayer_ui.hide()
 	host_addr_label.text = get_local_ip()
 
 func _on_join_pressed():
+	Shared.player_name = name_input.text
 	var join_ip: String = join_ip_lineedit.text
 	if join_ip.is_empty():
 		join_ip_lineedit.placeholder_text = "Please enter IP"

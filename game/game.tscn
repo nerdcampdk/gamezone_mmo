@@ -395,10 +395,10 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -13.0
-offset_top = -1.0
-offset_right = -13.0
-offset_bottom = -1.0
+offset_left = -21.0
+offset_top = 5.0
+offset_right = -21.0
+offset_bottom = 5.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -420,6 +420,14 @@ grow_vertical = 2
 layout_mode = 2
 text = "Multiplayer Arena Shooter"
 
+[node name="NameInput" type="LineEdit" parent="UI/Multiplayer/VBoxContainer"]
+layout_mode = 2
+placeholder_text = "Enter Name"
+alignment = 1
+
+[node name="VSplitContainer2" type="VSplitContainer" parent="UI/Multiplayer/VBoxContainer"]
+layout_mode = 2
+
 [node name="Host" type="Button" parent="UI/Multiplayer/VBoxContainer"]
 layout_mode = 2
 text = "Host"
@@ -427,7 +435,7 @@ text = "Host"
 [node name="VSplitContainer" type="VSplitContainer" parent="UI/Multiplayer/VBoxContainer"]
 layout_mode = 2
 
-[node name="LineEdit" type="LineEdit" parent="UI/Multiplayer/VBoxContainer"]
+[node name="IPInput" type="LineEdit" parent="UI/Multiplayer/VBoxContainer"]
 layout_mode = 2
 placeholder_text = "Enter IP"
 alignment = 1

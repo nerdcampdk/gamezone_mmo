@@ -13,6 +13,7 @@ func _ready():
 		$Camera2D.enabled = false
 	else:
 		$Camera2D.enabled = true
+		$NameLabel.text = Shared.player_name
 
 func _physics_process(delta):
 	if !is_multiplayer_authority():
