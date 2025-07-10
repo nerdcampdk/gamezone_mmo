@@ -5,23 +5,40 @@
 [ext_resource type="Texture2D" uid="uid://c853j5tombl8w" path="res://player/sprites/run.png" id="3_g1dw6"]
 [ext_resource type="Texture2D" uid="uid://dd4nt4ahybaby" path="res://player/sprites/jump.png" id="3_yw30f"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_g1dw6"]
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_si0n2"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("NameLabel:text")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("AnimatedSprite:animation")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath("AnimatedSprite:frame")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath("AnimatedSprite:flip_h")
+properties/4/spawn = true
+properties/4/replication_mode = 1
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rkbax"]
 atlas = ExtResource("2_rkbax")
 region = Rect2(0, 0, 80, 80)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_yw30f"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_g1dw6"]
 atlas = ExtResource("2_rkbax")
 region = Rect2(80, 0, 80, 80)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_qjkh3"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_yw30f"]
 atlas = ExtResource("2_rkbax")
 region = Rect2(160, 0, 80, 80)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_g6k8r"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_qjkh3"]
 atlas = ExtResource("2_rkbax")
 region = Rect2(240, 0, 80, 80)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_c35mf"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_g6k8r"]
 atlas = ExtResource("3_yw30f")
 region = Rect2(320, 0, 80, 80)
 
@@ -57,9 +74,12 @@ region = Rect2(480, 0, 80, 80)
 atlas = ExtResource("3_g1dw6")
 region = Rect2(560, 0, 80, 80)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_boad6"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_g6k8r"]
 animations = [{
 "frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rkbax")
+}, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_g1dw6")
 }, {
@@ -68,9 +88,6 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_qjkh3")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_g6k8r")
 }],
 "loop": true,
 "name": &"idle",
@@ -78,9 +95,9 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_c35mf")
+"texture": SubResource("AtlasTexture_g6k8r")
 }],
-"loop": false,
+"loop": true,
 "name": &"jump",
 "speed": 10.0
 }, {
@@ -114,56 +131,26 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rgyib"]
-radius = 6.0
-height = 14.0
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_yw30f"]
+radius = 0.0703684
 
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_si0n2"]
-properties/0/path = NodePath(".:position")
-properties/0/spawn = true
-properties/0/replication_mode = 1
-properties/1/path = NodePath("AnimatedSprite2D:animation")
-properties/1/spawn = true
-properties/1/replication_mode = 1
-properties/2/path = NodePath("AnimatedSprite2D:frame")
-properties/2/spawn = true
-properties/2/replication_mode = 1
-properties/3/path = NodePath("AnimatedSprite2D:flip_h")
-properties/3/spawn = true
-properties/3/replication_mode = 1
-properties/4/path = NodePath("NameLabel:text")
-properties/4/spawn = true
-properties/4/replication_mode = 1
-
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody3D"]
 collision_layer = 2
 script = ExtResource("1_uo8rl")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-sprite_frames = SubResource("SpriteFrames_boad6")
-animation = &"idle"
-autoplay = "idle"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CapsuleShape2D_rgyib")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_si0n2")
 
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(4, 4)
+[node name="AnimatedSprite" type="AnimatedSprite3D" parent="."]
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_g6k8r")
+animation = &"jump"
+autoplay = "idle"
 
-[node name="NameLabel" type="Label" parent="."]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -33.0
-offset_right = 20.0
-offset_bottom = -10.0
-grow_horizontal = 2
-grow_vertical = 2
-horizontal_alignment = 1
-vertical_alignment = 2
+[node name="CollisionShape" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_yw30f")
+
+[node name="NameLabel" type="Label3D" parent="."]
+
+[node name="Camera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.990268, 0.139173, 0, -0.139173, 0.990268, 0.0059278, 0.143144, 0.3634)

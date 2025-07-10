@@ -1,18 +1,18 @@
 class_name Player
-extends CharacterBody2D
+extends CharacterBody3D
 
-const SPEED = 100.0
-const JUMP_VELOCITY = -200.0
+const SPEED = 5.0
+const JUMP_VELOCITY = 4.5
 
 func _enter_tree():
 	set_multiplayer_authority(int(str(name)))
 
 func _ready():
 	if !is_multiplayer_authority():
-		$AnimatedSprite2D.modulate = Color.RED
-		$Camera2D.enabled = false
+		$AnimatedSprite.modulate = Color.RED
+		$Camera.current = false
 	else:
-		$Camera2D.enabled = true
+		$Camera.current = true
 		$NameLabel.text = Shared.player_name
 
 func _physics_process(delta):
@@ -38,7 +38,7 @@ func _physics_process(delta):
 	var direction = Input.get_axis("left", "right")
 	if direction:
 		velocity.x = direction * SPEED
-		$AnimatedSprite2D.flip_h = direction < 0
+		$AnimatedSprite.flip_h = direction < 0
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 
@@ -46,8 +46,8 @@ func _physics_process(delta):
 
 	# Animation control
 	if not is_on_floor():
-		$AnimatedSprite2D.play("jump")
+		$AnimatedSprite.play("jump")
 	elif abs(velocity.x) > 2:
-		$AnimatedSprite2D.play("run")
+		$AnimatedSprite.play("run")
 	else:
-		$AnimatedSprite2D.play("idle")
+		$AnimatedSprite.play("idle")

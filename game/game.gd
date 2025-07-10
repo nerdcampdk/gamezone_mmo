@@ -56,7 +56,8 @@ func _on_join_pressed():
 func add_player(pid):
 	var player = PLAYER.instantiate()
 	player.name = str(pid)
-	player.global_position = $Spawnpoints.get_child(players.size()).global_position
+	# Defer setting the position until the player is in the scene tree
+	player.call_deferred("set", "global_position", get_random_spawnpoint())
 	players.append(player)
 	
 	return player
